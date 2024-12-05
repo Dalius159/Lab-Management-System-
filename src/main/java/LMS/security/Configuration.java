@@ -42,26 +42,26 @@ public class Configuration {
 
 
                                 //Home
-                                .requestMatchers("/Home").hasAnyAuthority("ADMINISTRATEUR" , "DIRECTEUR",
-                                        "DOCTAURANT" , "ENSEIGNANT")
+                                .requestMatchers("/Home").hasAnyAuthority("ADMINISTRATOR", "DIRECTOR",
+                                        "DOCTORAL", "TEACHER")
 
                                 //MEMBRES
-                                .requestMatchers("/membre").hasAnyAuthority("DIRECTEUR","ADMINISTRATEUR")
-                                .requestMatchers("/adminM/**" ).hasAuthority("ADMINISTRATEUR")
+                                .requestMatchers("/membre").hasAnyAuthority("DIRECTOR", "ADMINISTRATOR")
+                                .requestMatchers("/adminM/**" ).hasAuthority("ADMINISTRATOR")
 
                                 //PROJETS
-                                .requestMatchers("/projet/**").hasAnyAuthority("ADMINISTRATEUR" , "DIRECTEUR",
-                                        "DOCTAURANT" , "ENSEIGNANT")
-                                .requestMatchers("/adminP/**").hasAuthority("ADMINISTRATEUR" )
+                                .requestMatchers("/projet/**").hasAnyAuthority("ADMINISTRATOR", "DIRECTOR",
+                                        "DOCTORAL", "TEACHER")
+                                .requestMatchers("/adminP/**").hasAuthority("ADMINISTRATOR")
 
                                 //Publication
-                                .requestMatchers("/publication/**").hasAnyAuthority("ADMINISTRATEUR" , "DIRECTEUR",
-                                        "DOCTAURANT" , "ENSEIGNANT")
-                                .requestMatchers("/adminPub/**").hasAuthority("ADMINISTRATEUR" )
-                                .requestMatchers("/addPublication/**").hasAnyAuthority("ADMINISTRATEUR" , "ENSEIGNANT")
+                                .requestMatchers("/publication/**").hasAnyAuthority("ADMINISTRATOR", "DIRECTOR",
+                                        "DOCTORAL", "TEACHER")
+                                .requestMatchers("/adminPub/**").hasAuthority("ADMINISTRATOR")
+                                .requestMatchers("/addPublication/**").hasAnyAuthority("ADMINISTRATOR", "TEACHER")
 
                                 //Ressource
-                                .requestMatchers("/adminRes/**" , "ressource").hasAuthority("ADMINISTRATEUR" )
+                                .requestMatchers("/adminRes/**" , "ressource").hasAuthority("ADMINISTRATOR")
 
 
                 ).formLogin(
