@@ -1,14 +1,14 @@
 package LMS.repository;
 
-import LMS.model.Membre;
+import LMS.model.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MembreRepository extends JpaRepository<Membre, Long> {
-    Membre findByEmail(String email);
+public interface MemberRepository extends JpaRepository<Member, Long> {
+    Member findByEmail(String email);
     long count();
-    Page<Membre> findByFirstNameContains(String kw, Pageable pageable);
+    Page<Member> findByFirstNameContains(String kw, Pageable pageable);
 }

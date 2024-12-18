@@ -1,8 +1,8 @@
 package LMS.controller;
 
-import LMS.model.Membre;
-import LMS.repository.MembreRepository;
-import LMS.service.MembreService;
+import LMS.model.Member;
+import LMS.repository.MemberRepository;
+import LMS.service.MemberService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -20,62 +20,62 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-public class MembreController {
+public class MemberController {
 
     @Autowired
-    private MembreRepository membreRepository ;
-    private final MembreService membreService;
+    private MemberRepository memberRepository ;
+    private final MemberService memberService;
 
 
     @GetMapping({"/" , "/login" })
     public String loginForm(Model model) {
-        Membre user = new Membre();
-        model.addAttribute("membre", user);
+        Member user = new Member();
+        model.addAttribute("member", user);
         return "login";
     }
 
     @GetMapping("TEST" )
     public String l(Model model) {
-        Membre user = new Membre();
-        model.addAttribute("membre", user);
+        Member user = new Member();
+        model.addAttribute("member", user);
         return "TEST";
     }
 
 
-    @GetMapping("adminM/AjouterMembre")
-    public String ajouter(Model model) {
-        Membre membre = new Membre();
-        model.addAttribute("membre", membre);
-        return "AjouterMembre";
+    @GetMapping("adminM/AddMember")
+    public String add(Model model) {
+        Member member = new Member();
+        model.addAttribute("member", member);
+        return "AddMember";
     }
 
     @PostMapping("/save")
     public String savee(@RequestParam("rol") List<String> selectedRoles  ,
-                        @Valid @ModelAttribute("membre") Membre user,
+                        @Valid @ModelAttribute("member") Member user,
                         BindingResult result,
                         Model model) {
 
-        Membre existing = membreService.findByEmail(user.getEmail());
+        Member existing = memberService.findByEmail(user.getEmail());
 
         if ( existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
-            return "redirect:/adminM/AjouterMembre?error";
+            return "redirect:/adminM/AddMember?error";
         }
         if (result.hasErrors()) {
             model.addAttribute("model", user);
-            return "AjouterMembre";
+            return "AddMember";
         }
-        membreService.saveUser(selectedRoles , user);
-        return "redirect:/membre";
+        memberService.saveUser(selectedRoles , user);
+        return "redirect:/member";
     }
 
 
     @PostMapping("/register/save")
     public String saveUsers(@RequestParam("rol") List<String> selectedRoles  ,
-                            @Valid @ModelAttribute("membre") Membre user,
+                            @Valid @ModelAttribute("member") Member user,
                             BindingResult result,
                             Model model) {
-        Membre existing = membreService.findByEmail(user.getEmail());
+        Member existing = memberService.findByEmail(user.getEmail());
 
         if (existing != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
@@ -87,51 +87,51 @@ public class MembreController {
             return "login";
         }
 
-        membreService.saveUser(selectedRoles , user);
+        memberService.saveUser(selectedRoles , user);
         return "redirect:/login?success";
 
     }
 
 
-    @GetMapping("membre")
-    public String Membres(Model model ,
+    @GetMapping("member")
+    public String Members(Model model ,
                           @RequestParam(name = "page",defaultValue = "0") int page,
                           @RequestParam(name = "size",defaultValue = "4") int size,
                           @RequestParam(name = "keyword",defaultValue = "") String kw) {
 
-        Page<Membre> membre = membreRepository.findByFirstNameContains(kw, PageRequest.of(page,size));
-        model.addAttribute("membres",membre.getContent());
-        model.addAttribute("pages",new int[membre.getTotalPages()]);
+        Page<Member> member = memberRepository.findByFirstNameContains(kw, PageRequest.of(page,size));
+        model.addAttribute("members",member.getContent());
+        model.addAttribute("pages",new int[member.getTotalPages()]);
         model.addAttribute("currentPage",page);
         model.addAttribute("keyword",kw);
-        //List<Membre> membres = membreService.findAllUsers();
+        //List<Member> members = memberService.findAllUsers();
 
-        //model.addAttribute("membres", membres);
-        return "membre";
+        //model.addAttribute("members", members);
+        return "member";
     }
 
-    @GetMapping("/adminM/editMembre/{id}")
-    public String editMembre(@PathVariable Long id, Model model) {
-        Membre membre = membreService.findById(id);
-        model.addAttribute("membre", membre);
-        return "editMembre";
+    @GetMapping("/adminM/editMember/{id}")
+    public String editMember(@PathVariable Long id, Model model) {
+        Member member = memberService.findById(id);
+        model.addAttribute("member", member);
+        return "editMember";
     }
 
     @PostMapping("/adminM/update")
-    public String updateMembre(@RequestParam("roles") List<String> selectedRoles  ,
+    public String updateMember(@RequestParam("roles") List<String> selectedRoles  ,
                                @RequestParam("pass") String pass  ,
-                               @Valid @ModelAttribute("membre") Membre membreDto ,
+                               @Valid @ModelAttribute("member") Member memberDto ,
                                BindingResult result, Model model) {
 
-        membreService.updateUser(membreDto ,selectedRoles , pass );
+        memberService.updateUser(memberDto ,selectedRoles , pass );
 
-        return "redirect:/membre";
+        return "redirect:/member";
     }
 
     @GetMapping("/adminM/delete/{id}")
-    public String deleteMembre(@PathVariable(value = "id") Long id) {
-        membreService.deleteUserById(id);
-        return "redirect:/membre";
+    public String deleteMember(@PathVariable(value = "id") Long id) {
+        memberService.deleteUserById(id);
+        return "redirect:/member";
     }
 }
 

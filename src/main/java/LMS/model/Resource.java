@@ -17,9 +17,9 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name="ressources")
+@Table(name="resources")
 
-public class Ressource {
+public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

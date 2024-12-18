@@ -34,7 +34,7 @@ public class Configuration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().and()
+        http
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
@@ -45,12 +45,12 @@ public class Configuration {
                                 .requestMatchers("/Home").hasAnyAuthority("ADMINISTRATOR", "DIRECTOR",
                                         "DOCTORAL", "TEACHER")
 
-                                //MEMBRES
-                                .requestMatchers("/membre").hasAnyAuthority("DIRECTOR", "ADMINISTRATOR")
+                                //MemberS
+                                .requestMatchers("/member").hasAnyAuthority("DIRECTOR", "ADMINISTRATOR")
                                 .requestMatchers("/adminM/**" ).hasAuthority("ADMINISTRATOR")
 
-                                //PROJETS
-                                .requestMatchers("/projet/**").hasAnyAuthority("ADMINISTRATOR", "DIRECTOR",
+                                //ProjectS
+                                .requestMatchers("/project/**").hasAnyAuthority("ADMINISTRATOR", "DIRECTOR",
                                         "DOCTORAL", "TEACHER")
                                 .requestMatchers("/adminP/**").hasAuthority("ADMINISTRATOR")
 
@@ -60,8 +60,8 @@ public class Configuration {
                                 .requestMatchers("/adminPub/**").hasAuthority("ADMINISTRATOR")
                                 .requestMatchers("/addPublication/**").hasAnyAuthority("ADMINISTRATOR", "TEACHER")
 
-                                //Ressource
-                                .requestMatchers("/adminRes/**" , "ressource").hasAuthority("ADMINISTRATOR")
+                                //Resource
+                                .requestMatchers("/adminRes/**" , "resource").hasAuthority("ADMINISTRATOR")
 
 
                 ).formLogin(

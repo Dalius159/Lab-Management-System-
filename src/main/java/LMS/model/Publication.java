@@ -40,7 +40,7 @@ public class Publication {
     private String publication;
 
     @ManyToOne
-    @JoinColumn(name = "projet_id")
-    private Projet projet;
+    @JoinColumn(name = "project_id")
+    private Project project;
 }
 

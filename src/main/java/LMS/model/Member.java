@@ -25,8 +25,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "membres")
-public class Membre {
+@Table(name = "members")
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,8 +50,8 @@ public class Membre {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
-            name = "membres_roles",
-            joinColumns = {@JoinColumn(name = "MEMBRE_ID", referencedColumnName = "ID")},
+            name = "members_roles",
+            joinColumns = {@JoinColumn(name = "MEMBER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
 
     private List<Role> roles = new ArrayList<>();

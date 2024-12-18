@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Role findByName(String name);
 
-    @Query("SELECT r.name, COUNT(m) FROM Role r JOIN r.membres m GROUP BY r.name")
+    @Query("SELECT r.name, COUNT(m) FROM Role r JOIN r.members m GROUP BY r.name")
     List<Object[]> countUsersByRole();
 }

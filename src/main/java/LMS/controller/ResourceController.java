@@ -1,8 +1,8 @@
 package LMS.controller;
 
-import LMS.model.Ressource;
-import LMS.repository.RessourceRepository;
-import LMS.service.RessourceService;
+import LMS.model.Resource;
+import LMS.repository.ResourceRepository;
+import LMS.service.ResourceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,61 +19,61 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-public class RessourceController {
+public class ResourceController {
     @Autowired
-    private RessourceRepository ressourceRepository ;
-    private final RessourceService ressourceService ;
+    private ResourceRepository resourceRepository ;
+    private final ResourceService resourceService ;
 
-    @GetMapping("ressource")
-    public String listeRes( Model model , @RequestParam(name = "page",defaultValue = "0") int page,
+    @GetMapping("resource")
+    public String listRes( Model model , @RequestParam(name = "page",defaultValue = "0") int page,
                             @RequestParam(name = "size",defaultValue = "4") int size,
                             @RequestParam(name = "keyword",defaultValue = "") String kw) {
 
-        Page<Ressource> res = ressourceRepository.findByNomContains(kw, PageRequest.of(page,size));
+        Page<Resource> res = resourceRepository.findByNomContains(kw, PageRequest.of(page,size));
         model.addAttribute("res",res.getContent());
         model.addAttribute("pages",new int[res.getTotalPages()]);
         model.addAttribute("currentPage",page);
         model.addAttribute("keyword",kw);
-        //List<Ressource> ressources = ressourceService.findAllProjet();
-        //model.addAttribute( "res" , ressources);
-        return "ressource" ;
+        //List<Resource> resources = resourceService.findAllProject();
+        //model.addAttribute( "res" , resources);
+        return "resource" ;
     }
 
-    @GetMapping("adminRes/addRessource")
-    public String ajouterres(Model model){
-        Ressource res = new Ressource() ;
+    @GetMapping("adminRes/addResource")
+    public String addres(Model model){
+        Resource res = new Resource() ;
         model.addAttribute("res" , res) ;
-        return "addRessource" ;
+        return "addResource" ;
     }
 
     @PostMapping("/adminRes/save")
-    public String saveres(@Valid @ModelAttribute("res") Ressource ressource,
+    public String saveres(@Valid @ModelAttribute("res") Resource resource,
                           BindingResult result,
                           Model model){
 
-        ressourceService.save(ressource);
-        return "redirect:/ressource" ;
+        resourceService.save(resource);
+        return "redirect:/resource" ;
     }
 
 
 
     @GetMapping("/adminRes/deleteRes/{id}")
     public String deletres(@PathVariable(value ="id") Long id ){
-        ressourceService.deleteRes(id) ;
-        return "redirect:/ressource" ;
+        resourceService.deleteRes(id) ;
+        return "redirect:/resource" ;
     }
 
     @GetMapping("/adminRes/editRes/{id}")
     public String showEditres(@PathVariable Long id, Model model) {
-        Ressource ressource = ressourceService.findById(id) ;
-        model.addAttribute("res", ressource);
-        return "editRessource";
+        Resource resource = resourceService.findById(id) ;
+        model.addAttribute("res", resource);
+        return "editResource";
     }
 
     @PostMapping("/adminRes/update")
-    public String updateres(@Valid @ModelAttribute("res") Ressource ressource , BindingResult result, Model model) {
-        ressourceService.save(ressource);
-        return "redirect:/ressource";
+    public String updateres(@Valid @ModelAttribute("res") Resource resource , BindingResult result, Model model) {
+        resourceService.save(resource);
+        return "redirect:/resource";
     }
 
 }

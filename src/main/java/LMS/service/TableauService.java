@@ -2,8 +2,8 @@ package LMS.service;
 
 import java.util.List;
 
-import LMS.repository.MembreRepository;
-import LMS.repository.ProjetRepository;
+import LMS.repository.MemberRepository;
+import LMS.repository.ProjectRepository;
 import LMS.repository.PublicationRepository;
 import LMS.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +13,23 @@ import org.springframework.stereotype.Service;
 public class TableauService {
 
     @Autowired
-    private MembreRepository membreRepository ;
+    private MemberRepository memberRepository ;
 
     @Autowired
     private PublicationRepository publicationRepository ;
 
     @Autowired
-    private ProjetRepository projetRepository ;
+    private ProjectRepository projectRepository ;
 
     @Autowired
     private RoleRepository roleRepository;
 
     public Long countM(){
-        return membreRepository.count() ;
+        return memberRepository.count() ;
     }
 
     public Long countP(){
-        return projetRepository.count() ;
+        return projectRepository.count() ;
     }
     public Long countPub(){
         return publicationRepository.count() ;

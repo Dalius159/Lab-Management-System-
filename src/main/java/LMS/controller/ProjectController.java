@@ -1,8 +1,8 @@
 package LMS.controller;
 
-import LMS.model.Projet;
-import LMS.repository.ProjetRepository;
-import LMS.service.ProjetService;
+import LMS.model.Project;
+import LMS.repository.ProjectRepository;
+import LMS.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,44 +19,44 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-public class ProjetController {
+public class ProjectController {
     @Autowired
-    private ProjetRepository projetRepository ;
-    private final ProjetService projetService;
+    private ProjectRepository projectRepository ;
+    private final ProjectService projectService;
 
-    @GetMapping("projet")
-    public String listeProjet( Model model , @RequestParam(name = "page",defaultValue = "0") int page,
+    @GetMapping("project")
+    public String listProject( Model model , @RequestParam(name = "page",defaultValue = "0") int page,
                                @RequestParam(name = "size",defaultValue = "4") int size,
                                @RequestParam(name = "keyword",defaultValue = "") String kw) {
 
-        Page<Projet> projet = projetRepository.findByTitreContains(kw, PageRequest.of(page,size));
-        model.addAttribute("projets",projet.getContent());
-        model.addAttribute("pages",new int[projet.getTotalPages()]);
+        Page<Project> project = projectRepository.findByTitreContains(kw, PageRequest.of(page,size));
+        model.addAttribute("projects",project.getContent());
+        model.addAttribute("pages",new int[project.getTotalPages()]);
         model.addAttribute("currentPage",page);
         model.addAttribute("keyword",kw);
-        //List<Projet> projets = projetService.findAllProjet();
-        //model.addAttribute( "projets" , projets);
-        return "projet" ;
+        //List<Project> projects = projectService.findAllProject();
+        //model.addAttribute( "projects" , projects);
+        return "project" ;
     }
 
-    @GetMapping("/adminP/ajouterProjet")
-    public String ajouterprojet(Model model){
-        Projet projet = new Projet() ;
-        model.addAttribute("projet" , projet) ;
-        return "addProjet" ;
+    @GetMapping("/adminP/addProject")
+    public String addproject(Model model){
+        Project project = new Project() ;
+        model.addAttribute("project" , project) ;
+        return "addProject" ;
     }
 
     @PostMapping("/adminP/save")
-    public String saveProject(@Valid @ModelAttribute("projet") Projet projet,
+    public String saveProject(@Valid @ModelAttribute("project") Project project,
                               BindingResult result,
                               Model model){
 
-        projetService.save(projet);
-        return "redirect:/projet" ;
+        projectService.save(project);
+        return "redirect:/project" ;
     }
 
 
-    @GetMapping("/projet/descProjet/{description}")
+    @GetMapping("/project/descProject/{description}")
     public String desc(@PathVariable(value = "description") String description , Model model){
 
         model.addAttribute("des" , description ) ;
@@ -68,23 +68,23 @@ public class ProjetController {
         return "description" ;
     }
 
-    @GetMapping("/adminP/deleteProjet/{id}")
+    @GetMapping("/adminP/deleteProject/{id}")
     public String deletProj(@PathVariable(value ="id") Long id ){
-        projetService.deleteProjet(id) ;
-        return "redirect:/projet" ;
+        projectService.deleteProject(id) ;
+        return "redirect:/project" ;
     }
 
-    @GetMapping("/adminP/editProjet/{id}")
+    @GetMapping("/adminP/editProject/{id}")
     public String showEditUsersForm(@PathVariable Long id, Model model) {
-        Projet projet = projetService.findById(id) ;
-        model.addAttribute("projet", projet);
-        return "editProjet";
+        Project project = projectService.findById(id) ;
+        model.addAttribute("project", project);
+        return "editProject";
     }
 
     @PostMapping("/adminP/update")
-    public String updateUser(@Valid @ModelAttribute("projet") Projet projet , BindingResult result, Model model) {
-        projetService.save(projet);
-        return "redirect:/projet";
+    public String updateUser(@Valid @ModelAttribute("project") Project project , BindingResult result, Model model) {
+        projectService.save(project);
+        return "redirect:/project";
     }
 
 }

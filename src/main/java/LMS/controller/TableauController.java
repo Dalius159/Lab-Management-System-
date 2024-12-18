@@ -2,8 +2,8 @@ package LMS.controller;
 
 import java.util.List;
 
-import LMS.model.Membre;
-import LMS.service.MembreService;
+import LMS.model.Member;
+import LMS.service.MemberService;
 import LMS.service.PublicationService;
 import LMS.service.TableauService;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TableauController {
     private final TableauService tableauService ;
     private final PublicationService publicationService ;
-    private final MembreService membreService ;
+    private final MemberService memberService ;
 
     @GetMapping("Home")
     public String home(Model model){
 
         String username = publicationService.UserName()  ;
-        Membre membre = membreService.findByEmail(username) ;
-        model.addAttribute("membre" , membre ) ;
+        Member member = memberService.findByEmail(username) ;
+        model.addAttribute("member" , member ) ;
         model.addAttribute("m" , tableauService.countM()) ;
         model.addAttribute("p" , tableauService.countP()) ;
         model.addAttribute("pub" , tableauService.countPub()) ;

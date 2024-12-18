@@ -1,9 +1,9 @@
 package LMS.controller;
 
-import LMS.model.Projet;
+import LMS.model.Project;
 import LMS.model.Publication;
 import LMS.repository.PublicationRepository;
-import LMS.service.ProjetService;
+import LMS.service.ProjectService;
 import LMS.service.PublicationService;
 import jakarta.validation.Valid;
 import java.util.Date;
@@ -26,10 +26,10 @@ public class PublicationController {
     @Autowired
     private PublicationRepository publicationRepository ;
     private final PublicationService publicationService;
-    private final ProjetService projetService ;
+    private final ProjectService projectService ;
 
     @GetMapping("publication")
-    public String listePub( Model model , @RequestParam(name = "page",defaultValue = "0") int page,
+    public String listPub( Model model , @RequestParam(name = "page",defaultValue = "0") int page,
                             @RequestParam(name = "size",defaultValue = "4") int size,
                             @RequestParam(name = "keyword",defaultValue = "") String kw) {
 
@@ -38,16 +38,16 @@ public class PublicationController {
         model.addAttribute("pages",new int[pub.getTotalPages()]);
         model.addAttribute("currentPage",page);
         model.addAttribute("keyword",kw);
-        //List<Publication> pubs = publicationService.findAllProjet();
+        //List<Publication> pubs = publicationService.findAllProject();
         //model.addAttribute( "pubs" , pubs);
         return "publication" ;
     }
 
     @GetMapping("/addPublication/{id}")
-    public String ajouterpub(Model model , @PathVariable(value ="id") Long id  ){
-        Projet projet = projetService.findById(id) ;
+    public String addpub(Model model , @PathVariable(value ="id") Long id  ){
+        Project project = projectService.findById(id) ;
         Publication pub = new Publication() ;
-        pub.setProjet(projet);
+        pub.setProject(project);
         model.addAttribute("pub" , pub) ;
         return "addPublication" ;
     }
@@ -60,7 +60,7 @@ public class PublicationController {
 
         pub.setDate_pub(new Date());
         pub.setAuteur(publicationService.UserName());
-        pub.setProjet(pub.getProjet());
+        pub.setProject(pub.getProject());
         publicationService.save(pub);
         return "redirect:/publication" ;
     }
@@ -86,7 +86,7 @@ public class PublicationController {
         Publication publication = publicationService.findById(id) ;
 
         pub.setAuteur(publication.getAuteur());
-        pub.setProjet(publication.getProjet());
+        pub.setProject(publication.getProject());
         pub.setDate_pub(publication.getDate_pub());
 
         publicationService.save(pub);

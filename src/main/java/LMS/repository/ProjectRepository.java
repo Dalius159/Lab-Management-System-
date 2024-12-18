@@ -1,13 +1,13 @@
 package LMS.repository;
 
-import LMS.model.Projet;
+import LMS.model.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProjetRepository extends JpaRepository<Projet, Long> {
+public interface ProjectRepository extends JpaRepository<Project, Long> {
     long count() ;
-    Page<Projet> findByTitreContains(String kw, Pageable pageable);
+    Page<Project> findByTitreContains(String kw, Pageable pageable);
 }

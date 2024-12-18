@@ -3,9 +3,9 @@ package LMS.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import LMS.model.Membre;
+import LMS.model.Member;
 import LMS.model.Role;
-import LMS.repository.MembreRepository;
+import LMS.repository.MemberRepository;
 import LMS.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,13 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class MembreService {
-    private final MembreRepository membreRepository;
+public class MemberService {
+    private final MemberRepository memberRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void saveUser( List<String> selectedRoles , Membre user) {
+    public void saveUser( List<String> selectedRoles , Member user) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -37,23 +37,23 @@ public class MembreService {
         System.out.println("roless" + roles);
         user.setRoles(roles);
 
-        membreRepository.save(user);
+        memberRepository.save(user);
     }
     private Role role(String element) {
         Role role = new Role();
         role.setName(element);
         return roleRepository.save(role);
     }
-    public Membre findByEmail(String email) {
-        return membreRepository.findByEmail(email);
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email);
     }
 
-    public Membre findById(Long id) {
-        return membreRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+    public Member findById(Long id) {
+        return memberRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 
     @Transactional
-    public void updateUser(Membre user , List<String> selectedRoles , String pass) {
+    public void updateUser(Member user , List<String> selectedRoles , String pass) {
 
         if ( pass.equals(user.getPassword() )) {
             user.setPassword(user.getPassword());
@@ -78,16 +78,16 @@ public class MembreService {
         user.setRoles(roles);
 
 
-        membreRepository.save(user);
+        memberRepository.save(user);
     }
 
-    public List<Membre> findAllUsers() {
-        List<Membre> users = membreRepository.findAll();
+    public List<Member> findAllUsers() {
+        List<Member> users = memberRepository.findAll();
         return users;
     }
 
     public void deleteUserById(Long id) {
-        membreRepository.deleteById(id);
+        memberRepository.deleteById(id);
     }
 
 }

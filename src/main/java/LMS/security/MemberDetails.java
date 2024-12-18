@@ -3,9 +3,9 @@ package LMS.security;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import LMS.model.Membre;
+import LMS.model.Member;
 import LMS.model.Role;
-import LMS.repository.MembreRepository;
+import LMS.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,19 +16,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class MembreDetails  implements UserDetailsService  {
+public class MemberDetails  implements UserDetailsService  {
 
-    private final MembreRepository membreRepository;
+    private final MemberRepository memberRepository;
 
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Membre membre = membreRepository.findByEmail(email);
+        Member member = memberRepository.findByEmail(email);
 
-        if (membre != null) {
-            return new org.springframework.security.core.userdetails.User(membre.getEmail(),
-                    membre.getPassword(),
-                    mapRolesToAuthorities(membre.getRoles()));
+        if (member != null) {
+            return new org.springframework.security.core.userdetails.User(member.getEmail(),
+                    member.getPassword(),
+                    mapRolesToAuthorities(member.getRoles()));
         } else {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
