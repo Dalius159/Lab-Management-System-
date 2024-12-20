@@ -34,7 +34,7 @@ public class MemberService {
             }
             roles.add(role) ;
         }
-        System.out.println("roless" + roles);
+        System.out.println("roles" + roles);
         user.setRoles(roles);
 
         memberRepository.save(user);

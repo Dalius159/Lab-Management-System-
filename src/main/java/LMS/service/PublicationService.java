@@ -43,8 +43,8 @@ public class PublicationService {
 
         if (authentication != null && authentication.isAuthenticated()) {
 
-            String nomUtilisateur = authentication.getName();
-            return nomUtilisateur;
+            String username = authentication.getName();
+            return username;
         }
 
         return null;

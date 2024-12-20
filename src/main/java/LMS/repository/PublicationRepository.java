@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PublicationRepository  extends JpaRepository<Publication, Long > {
     long count() ;
-    Page<Publication> findByTitreContains(String kw, Pageable pageable);
+    Page<Publication> findByTitleContains(String kw, Pageable pageable);
 }
 

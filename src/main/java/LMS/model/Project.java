@@ -21,35 +21,28 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
 @Table(name="project")
 public class Project {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column
-    private String titre;
-
+    private String title;
 
     @Column(length = 100000)
     private String description;
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date  date_debut ;
-
+    private Date  start_date;
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date_fin;
+    private Date end_date;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Publication> publications = new ArrayList<>();
-
-
 }
 

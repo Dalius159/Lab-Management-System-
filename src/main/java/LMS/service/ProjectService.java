@@ -19,7 +19,7 @@ public class ProjectService {
     }
 
     public void save(Project project){
-        System.out.println(project.getDate_debut());
+        System.out.println(project.getStart_date());
         projectRepository.save(project) ;
     }
 

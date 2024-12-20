@@ -42,26 +42,23 @@ public class Configuration {
 
 
                                 //Home
-                                .requestMatchers("/Home").hasAnyAuthority("ADMINISTRATOR", "DIRECTOR",
-                                        "DOCTORAL", "TEACHER")
+                                .requestMatchers("/Home").hasAnyAuthority("ADMIN", "STAFF", "CLIENT")
 
                                 //MemberS
-                                .requestMatchers("/member").hasAnyAuthority("DIRECTOR", "ADMINISTRATOR")
-                                .requestMatchers("/adminM/**" ).hasAuthority("ADMINISTRATOR")
+                                .requestMatchers("/member").hasAnyAuthority("STAFF", "ADMIN")
+                                .requestMatchers("/adminM/**" ).hasAuthority("ADMIN")
 
                                 //ProjectS
-                                .requestMatchers("/project/**").hasAnyAuthority("ADMINISTRATOR", "DIRECTOR",
-                                        "DOCTORAL", "TEACHER")
-                                .requestMatchers("/adminP/**").hasAuthority("ADMINISTRATOR")
+                                .requestMatchers("/project/**").hasAnyAuthority("ADMIN", "STAFF")
+                                .requestMatchers("/adminP/**").hasAuthority("ADMIN")
 
                                 //Publication
-                                .requestMatchers("/publication/**").hasAnyAuthority("ADMINISTRATOR", "DIRECTOR",
-                                        "DOCTORAL", "TEACHER")
-                                .requestMatchers("/adminPub/**").hasAuthority("ADMINISTRATOR")
-                                .requestMatchers("/addPublication/**").hasAnyAuthority("ADMINISTRATOR", "TEACHER")
+                                .requestMatchers("/publication/**").hasAnyAuthority("ADMIN", "STAFF")
+                                .requestMatchers("/adminPub/**").hasAuthority("ADMIN")
+                                .requestMatchers("/addPublication/**").hasAnyAuthority("ADMIN")
 
                                 //Resource
-                                .requestMatchers("/adminRes/**" , "resource").hasAuthority("ADMINISTRATOR")
+                                .requestMatchers("/adminRes/**" , "resource").hasAuthority("ADMIN")
 
 
                 ).formLogin(

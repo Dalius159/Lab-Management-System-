@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     long count() ;
-    Page<Project> findByTitreContains(String kw, Pageable pageable);
+    Page<Project> findByTitleContains(String kw, Pageable pageable);
 }

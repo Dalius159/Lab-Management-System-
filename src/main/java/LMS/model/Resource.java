@@ -15,24 +15,20 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
 @Table(name="resources")
-
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String nom;
+    private String name;
 
     @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private String disponibilite ;
-
-
+    private String availability ;
 }
 

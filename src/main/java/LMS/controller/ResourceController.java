@@ -29,7 +29,7 @@ public class ResourceController {
                             @RequestParam(name = "size",defaultValue = "4") int size,
                             @RequestParam(name = "keyword",defaultValue = "") String kw) {
 
-        Page<Resource> res = resourceRepository.findByNomContains(kw, PageRequest.of(page,size));
+        Page<Resource> res = resourceRepository.findByNameContains(kw, PageRequest.of(page,size));
         model.addAttribute("res",res.getContent());
         model.addAttribute("pages",new int[res.getTotalPages()]);
         model.addAttribute("currentPage",page);

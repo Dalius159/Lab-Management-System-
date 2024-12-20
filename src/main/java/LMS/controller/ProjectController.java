@@ -29,7 +29,7 @@ public class ProjectController {
                                @RequestParam(name = "size",defaultValue = "4") int size,
                                @RequestParam(name = "keyword",defaultValue = "") String kw) {
 
-        Page<Project> project = projectRepository.findByTitreContains(kw, PageRequest.of(page,size));
+        Page<Project> project = projectRepository.findByTitleContains(kw, PageRequest.of(page,size));
         model.addAttribute("projects",project.getContent());
         model.addAttribute("pages",new int[project.getTotalPages()]);
         model.addAttribute("currentPage",page);

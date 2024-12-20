@@ -18,20 +18,18 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
 @Table(name="publication")
-
 public class Publication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String titre;
+    private String title;
 
     @Column(nullable = false)
-    private String auteur;
+    private String author;
 
     @Column(nullable = false)
     private Date date_pub ;

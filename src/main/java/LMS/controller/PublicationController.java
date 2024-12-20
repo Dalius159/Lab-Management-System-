@@ -33,7 +33,7 @@ public class PublicationController {
                             @RequestParam(name = "size",defaultValue = "4") int size,
                             @RequestParam(name = "keyword",defaultValue = "") String kw) {
 
-        Page<Publication> pub = publicationRepository.findByTitreContains(kw, PageRequest.of(page,size));
+        Page<Publication> pub = publicationRepository.findByTitleContains(kw, PageRequest.of(page,size));
         model.addAttribute("pubs",pub.getContent());
         model.addAttribute("pages",new int[pub.getTotalPages()]);
         model.addAttribute("currentPage",page);
@@ -59,7 +59,7 @@ public class PublicationController {
 
 
         pub.setDate_pub(new Date());
-        pub.setAuteur(publicationService.UserName());
+        pub.setAuthor(publicationService.UserName());
         pub.setProject(pub.getProject());
         publicationService.save(pub);
         return "redirect:/publication" ;
@@ -85,14 +85,12 @@ public class PublicationController {
         Long id= pub.getId() ;
         Publication publication = publicationService.findById(id) ;
 
-        pub.setAuteur(publication.getAuteur());
+        pub.setAuthor(publication.getAuthor());
         pub.setProject(publication.getProject());
         pub.setDate_pub(publication.getDate_pub());
 
         publicationService.save(pub);
         return "redirect:/publication";
     }
-
-
 }
 
