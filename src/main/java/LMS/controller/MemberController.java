@@ -50,7 +50,7 @@ public class MemberController {
     }
 
     @PostMapping("/save")
-    public String savee(@RequestParam("rol") List<String> selectedRoles  ,
+    public String save(@RequestParam("rol") List<String> selectedRoles  ,
                         @Valid @ModelAttribute("member") Member user,
                         BindingResult result,
                         Model model) {

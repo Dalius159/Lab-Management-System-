@@ -42,7 +42,7 @@ public class Configuration {
 
 
                                 //Home
-                                .requestMatchers("/Home").hasAnyAuthority("ADMIN", "STAFF", "CLIENT")
+                                .requestMatchers("/Home").hasAnyAuthority("ADMIN", "STAFF", "VISITOR")
 
                                 //MemberS
                                 .requestMatchers("/member").hasAnyAuthority("STAFF", "ADMIN")
