@@ -1,124 +1,147 @@
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title> Members </title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
-        rel="stylesheet"  />
-  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" th:href="@{/css/dashbord.css}" />
+    <meta charset="UTF-8">
+    <title> Members </title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+            rel="stylesheet"  /> 
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" th:href="@{/css/dashbord.css}" />
 </head>
 
-<body>
-<div class="dashboard-container">
-  <!-- Sidebar -->
-  <aside class="main-sidebar">
-    <header class="aside-header">
-      <div style ="text-align:center" >
-        <span style="font-size: 40px ; font-weight: bold; ">Lab</span>
-        <span style="font-size: 20px;  font-weight: bold; ">Project X</span>
 
-      </div>
-      <div class="close" id="closeSidebar">
-        <span class="material-icons-sharp"> close </span>
-      </div>
-    </header>
+<body>    
+    <div class="dashboard-container">       
+        
+       <!-- Sidebar -->    
+            <aside class="main-sidebar">
+                <header class="aside-header">
+                    <div style ="text-align:center" >
+                       <span style="font-size: 40px ; font-weight: bold; ">Lab</span>
+                        <span style="font-size: 20px;  font-style: bold; ">G12</span>
 
-    <div class="sidebar" >
-      <ul class="list-items">
-        <li class="item" >
-          <a href="Home" >
-            <span class="material-icons-sharp">dashboard</span>
-            <span>Dashboard</span>
-          </a>
-        </li>
-        <li class="item" th:if="${#lists.contains(#authentication.principal.authorities.![authority], 'ADMIN')}" >
-          <a href="member"  >
-            <span class="material-icons-sharp">people</span>
-            <span>Members
-              <span th:if="${#lists.contains(#authentication.principal.authorities.![authority], 'ADMIN') }"> and Roles </span>
-            </span>
-          </a>
-        </li>
-        <li class="item" >
-          <a href="project">
-            <span class="material-icons-sharp">search</span>
-            <span>Projects</span>
-          </a>
-        </li>
-        <li class="item">
-          <a href="publication" class="active" >
-            <span class="material-icons-sharp">library_books</span>
-            <span>Publications</span>
-          </a>
-        </li>
-        <li class="item" th:if="${#lists.contains(#authentication.principal.authorities.![authority], 'ADMIN')}">
-          <a href="resource" >
-            <span class="material-icons-sharp">folder
-            </span>
-            <span>Resources</span>
-          </a>
-        </li>
-        <br><br>
-        <li class="item">
-          <a th:href="@{/logout }">
-            <span class="material-icons-sharp">logout</span>
-            <span>Logout</span>
-          </a>
-        </li>
-      </ul>
+                    </div>
+                    <div class="close" id="closeSidebar">
+                        <span class="material-icons-sharp"> close </span>
+                    </div>
+                </header>
+
+                <div class="sidebar" >
+                    <ul class="list-items">
+                        <li class="item" >
+                            <a href="Home" >
+                                <span class="material-icons-sharp">
+                                    dashboard
+                                </span>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="member">
+                                <span class="material-icons-sharp">
+                                    people
+                                </span>
+                                <span>Members</span>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="project" th:if="${#lists.contains(#authentication.principal.authorities.![authority], 'ADMIN') or #lists.contains(#authentication.principal.authorities.![authority], 'STAFF')}">
+                                <span class="material-icons-sharp">
+                                    search
+                                </span>
+                                <span>Projects</span>
+                            </a>
+                        </li>
+                        <li class="item">
+                            <a href="publication" class="active" >
+                                <span class="material-icons-sharp">
+                                    library_books
+                                </span>
+                                <span>Publications</span>
+                            </a>
+                        </li>
+                        <li class="item" th:if="${#lists.contains(#authentication.principal.authorities.![authority], 'ADMIN') or #lists.contains(#authentication.principal.authorities.![authority], 'STAFF')}">
+                            <a href="resource" >
+                                <span class="material-icons-sharp">
+                                    folder
+                                </span>
+                                <span>Resources</span>
+                            </a>
+                        </li>
+                       
+                        
+                        <br><br>
+                        <li class="item">
+                            <a th:href="@{/logout }">
+                                <span class="material-icons-sharp">
+                                    logout
+                                </span>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            
+        <!-- Main -->
+            <main>
+                <br><br><br><br><br>
+               <section class="model">
+                    
+                   <div class="row">
+                    <div class="col-md-6" >
+                        <form method="get" th:href="@{publication}">
+                            <ul class="nav nav-pills">
+                                <li>
+                                    <label class="form-label">Keyword:</label>
+                                </li>
+                                <li>
+                                    <input type="text" class="form-control" name="keyword">
+                                </li>
+                                <li>
+                                    <button class="btn btn-info">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+                   
+                <div class="comment-container"  th:each="pub : ${pubs}" >
+                    <div class="comment">
+                        <h3  th:text="${pub.title}" />
+                        <p><strong>Project :</strong> <span th:text="${pub.project.title}"/></p>
+                        
+                        <p><strong>Description :</strong> <span th:text="${pub.publication}" /></p>
+                        <p style="text-align: right;"><span th:text="${pub.author}" />, <span th:text="${pub.date_pub}" /></p>
+                        <a th:href="${pub.linkConnect}" target="_blank" class="btn btn-primary">See Publication</a>
+                    </div>
+                             <div style="text-align: right;" th:if="${#lists.contains(#authentication.principal.authorities.![authority], 'ADMIN')}">
+                                    <a th:href="@{'/adminPub/editPub/' + ${pub.id}}"  > <i class="bi bi-pen"></i>  Edit</a>
+                                    <a  th:href="@{'/adminPub/deletePub/' + ${pub.id}}"  onclick="return confirm('Are you sure?')" ><i class="bi bi-trash"></i>Delete</a>
+                                    <br>
+                                </div>
+                </div>
+                   
+                   <br><br>
+                   <ul  class="nav nav-pills" >
+                        <li th:each="page,status:${pages}">
+                          <a
+                                  th:class="${status.index==currentPage?'btn btn-info ms-1':'btn btn-outline-info ms-1'}"
+                                  th:href="@{publication(page=${status.index}, keyword=${keyword})}"
+                                  th:text="${status.index}">
+                          </a>
+                        </li>
+                   </ul><!-- comment -->
+                </section>
+                    
+            </main>
+        
     </div>
-  </aside>
-  <!-- Main -->
-  <main>
-    <br><br><br><br><br>
-    <section class="model">
-      <div class="row">
-        <div class="col-md-6" >
-          <form method="get" th:href="@{publication}">
-            <ul class="nav nav-pills">
-              <li><label class="form-label">Keyword:</label></li>
-              <li><input type="text" class="form-control" name="keyword"></li>
-              <li>
-                <button class="btn btn-info">
-                  <i class="bi bi-search"></i>
-                </button>
-              </li>
-            </ul>
-          </form>
-        </div>
-      </div>
 
-      <div class="comment-container"  th:each="pub : ${pubs}" >
-        <div class="comment">
-          <h3  th:text="${pub.title}" />
-          <p><strong>Project:</strong> <span th:text="${pub.project.title}"/></p>
-
-          <p><strong>Description:</strong> <span th:text="${pub.publication}" /></p>
-          <p style="text-align: right;"><span th:text="${pub.author}" />, <span th:text="${pub.date_pub}" /></p>
-
-
-        </div>
-        <div style="text-align: right;" th:if="${#lists.contains(#authentication.principal.authorities.![authority], 'ADMIN')}">
-          <a th:href="@{'/adminPub/editPub/' + ${pub.id}}"  > <i class="bi bi-pen"></i>  Edit</a>
-          <a  th:href="@{'/adminPub/deletePub/' + ${pub.id}}"  onclick="return confirm('Are you sure?')" ><i class="bi bi-trash"></i>Delete</a>
-          <br>
-        </div>
-      </div>
-
-      <br><br>
-      <ul  class="nav nav-pills" >
-        <li th:each="page,status:${pages}">
-          <a
-            th:class="${status.index==currentPage?'btn btn-info ms-1':'btn btn-outline-info ms-1'}"
-            th:href="@{publication(page=${status.index}, keyword=${keyword})}"
-            th:text="${status.index}">
-          </a>
-        </li>
-      </ul><!-- comment -->
-    </section>
-  </main>
-</div>
 </body>
 </html>
